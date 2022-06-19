@@ -33,7 +33,7 @@ void setup()
 
 void loop()
 {
-  Angle[2]= MostrarValoresGiro();
+  RotZ= MostrarValoresGiro();
   Serial.println(Angle[2]);
   delay(100);
   

@@ -2,12 +2,13 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BMP280.h>
 
+#define densidad 997
+#define g 9.80665
+
 Adafruit_BMP280 bmp;
 float pressure;
 float altura;
-float densidad = 997;
-float g = 9.80665;
-float P0 = 101325;
+float P0;
 long last_millis;
 long current_millis;
 
@@ -18,6 +19,8 @@ void setup() {
   if(!bmp.begin()){
     Serial.println("El sensor BMP280 no encontrado");
   }
+
+  P0=bmp.readPressure();
 
 }
 

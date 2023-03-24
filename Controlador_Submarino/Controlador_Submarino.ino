@@ -13,7 +13,8 @@ int fowardM2=8;
 int reverseM2=7;
 int enable1=6;
 int enable2=5;
-int i,direccion;
+int i;
+int direccion;
 //Adafruit_BMP280 bmp;
 float pressure;
 float altura;
@@ -25,14 +26,15 @@ void setup() {
   pinMode(bomba,OUTPUT);
   pinMode(fowardM1,OUTPUT);
   pinMode(fowardM2,OUTPUT);
+  
   pinMode(reverseM1,OUTPUT);
   pinMode(reverseM2,OUTPUT);
   pinMode(enable1,OUTPUT);
   pinMode(enable2,OUTPUT);
   
   //Inicia y comprueba que los sensores esten
-  /*Serial.begin(9600);
-  if(!bmp.begin()){
+  Serial.begin(9600);
+  /*if(!bmp.begin()){
     Serial.println("El sensor BMP280 no encontrado");
   }
 
@@ -48,15 +50,15 @@ void loop() {
     direccion=Serial.read();
   }
 
-  Serial.println(direccion);
+  //Serial.println(direccion);
 
   //Lee los datos del sensor de temperatura
   //pressure = bmp.readPressure();
 
   //Calcula la altura con la presión dada
   //altura = (pressure-P0)/(g*densidad);
-
-  switch(prueba)
+  
+  switch(direccion)
   {
     case 'U':
     digitalWrite(valvula,HIGH);

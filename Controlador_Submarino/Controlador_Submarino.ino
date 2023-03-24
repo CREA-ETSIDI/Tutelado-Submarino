@@ -1,6 +1,6 @@
 #include <Wire.h>
-#include <Adafruit_Sensor.h>
-#include <Adafruit_BMP280.h>
+//#include <Adafruit_Sensor.h>
+//#include <Adafruit_BMP280.h>
 
 #define densidad 997
 #define g 9.80665
@@ -11,8 +11,10 @@ int fowardM1=10;
 int reverseM1=9;
 int fowardM2=8;
 int reverseM2=7;
-int i,prueba;
-Adafruit_BMP280 bmp;
+int enable1=6;
+int enable2=5;
+int i,direccion;
+//Adafruit_BMP280 bmp;
 float pressure;
 float altura;
 float P0;
@@ -25,30 +27,34 @@ void setup() {
   pinMode(fowardM2,OUTPUT);
   pinMode(reverseM1,OUTPUT);
   pinMode(reverseM2,OUTPUT);
+  pinMode(enable1,OUTPUT);
+  pinMode(enable2,OUTPUT);
+  
   //Inicia y comprueba que los sensores esten
-  Serial.begin(9600);
+  /*Serial.begin(9600);
   if(!bmp.begin()){
     Serial.println("El sensor BMP280 no encontrado");
   }
 
   P0=bmp.readPressure();
-
+*/
 }
 
 void loop() {
 
+  //Lee la dirección a la que tiene que ir el submarino
   if(Serial.available()>0)
   {
-    prueba=Serial.read();
+    direccion=Serial.read();
   }
 
-  Serial.println(prueba);
+  Serial.println(direccion);
 
   //Lee los datos del sensor de temperatura
-  pressure = bmp.readPressure();
+  //pressure = bmp.readPressure();
 
   //Calcula la altura con la presión dada
-  altura = (pressure-P0)/(g*densidad);
+  //altura = (pressure-P0)/(g*densidad);
 
   switch(prueba)
   {
@@ -57,7 +63,7 @@ void loop() {
     digitalWrite(bomba,HIGH);
     break;
 
-    case 'D':
+    case 'D': 
     digitalWrite(valvula,LOW);
     digitalWrite(bomba,LOW);
     break;
@@ -67,6 +73,8 @@ void loop() {
     digitalWrite(fowardM2,HIGH);
     digitalWrite(reverseM1,LOW);
     digitalWrite(reverseM2,LOW);
+    digitalWrite(enable1,HIGH);
+    digitalWrite(enable2,HIGH);
     break;
 
     case 'B':
@@ -74,6 +82,8 @@ void loop() {
     digitalWrite(fowardM2,LOW);
     digitalWrite(reverseM1,HIGH);
     digitalWrite(reverseM2,HIGH);
+    digitalWrite(enable1,HIGH);
+    digitalWrite(enable2,HIGH);
     break;
 
     case 'L':
@@ -81,6 +91,8 @@ void loop() {
     digitalWrite(fowardM2,HIGH);
     digitalWrite(reverseM1,HIGH);
     digitalWrite(reverseM2,LOW);
+    digitalWrite(enable1,HIGH);
+    digitalWrite(enable2,HIGH);
     break;
 
     case 'R':
@@ -88,6 +100,8 @@ void loop() {
     digitalWrite(fowardM2,LOW);
     digitalWrite(reverseM1,LOW);
     digitalWrite(reverseM2,HIGH);
+    digitalWrite(enable1,HIGH);
+    digitalWrite(enable2,HIGH);
     break;
 
     default:
@@ -97,6 +111,8 @@ void loop() {
     digitalWrite(fowardM2,LOW);
     digitalWrite(reverseM1,LOW);
     digitalWrite(reverseM2,LOW);
+    digitalWrite(enable1,LOW);
+    digitalWrite(enable2,LOW);
     break;
 
     
